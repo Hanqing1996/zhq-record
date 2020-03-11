@@ -12,8 +12,12 @@
     @import "~@/assets/style/font.scss";
     @import "~@/assets/style/var.scss";
     body{
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #333;
         font-family: $font-hei;
-        line-height: 1.5em;
+        font-size: 16px;
+        line-height: 1.5;
     }
 
 </style>

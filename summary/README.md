@@ -133,3 +133,135 @@ tags 模块细分
 > 跨平台字体设置
 3. var.scss
 > css 变量
+
+
+
+#### 设计稿是以iphone 6,7,8 设计的，那么开发时也应该以iphone 6,7,8 开发
+
+
+#### 一个 input 在多种型号手机上的表现
+1. 指定不同型号对应 input 尺寸 
+```
+iphone6:64px
+iphone10:120px
+iphoneplus:160px 
+```
+2. 固定比例（比如 inout 高度一定是页面总高度的 10%）
+```
+input{
+    height:10vh
+}
+```
+
+#### vue组件的 class 和 react组件的 className
+* vue
+> class 会被加给组件顶层容器
+* react
+> className 需要手动添加给某个组件元素
+
+
+#### classPrefix
+> 假如有n个页面，都用到公共组件 Layout。由于每个页面的布局情况不同，现在需要给Layout的.content添加多个class,每个class对应一个页面
+
+* 比较直接的做法
+> Layout 接受一个 contentClass 属性,专门用于作为 .content 元素的类名
+```
+// Layout.vue
+<template>
+    <div class="wrapper">
+        <div class="content" :class="contentClass">
+            <slot></slot>
+        </div>
+        <Nav/>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Layout",
+        props:['contentClass']
+    }
+</script>
+```
+```
+// money.vue
+<template>
+    <Layout contentClass="moneyContent">
+       moneyContent
+    </Layout>
+</template>
+
+// labels.vue
+<template>
+    <Layout contentClass="labelsContent">
+       labelsContent
+    </Layout>
+</template>
+```
+这样做的问题在于,当 Layout 组件内部有多个我们需要添加类名的元素时，Layout 组件会需要大量额外的 prop
+```
+// Layout.vue
+<template>
+    <div class="wrapper">
+        <div class="content" :class="contentClass">
+            <slot></slot>
+        </div>
+        <div class="introduction" :class="introductionClass">
+            <slot name="introduction"></slot>
+        </div> 
+        <div class="other" :class="otherClass">
+            <slot name="other"></slot>
+        </div> 
+    </div>
+</template>
+<script>
+    export default {
+        name: "Layout",
+        props:['contentClass','introductionClass','otherClass']
+    }
+</script>
+```
+```
+// money.vue
+<template>
+    <Layout contentClass="moneyContent" introductionClass="moneyIntroduction" otherClass="moneyOther">
+       moneyContent
+    </Layout>
+</template>
+```
+* antd 想出来更好的API:classPrefix
+```
+// Layout.vue
+<template>
+    <div class="wrapper">
+        <div class="content" :class="classPrefix&&`{classPrefix}Content`">
+            <slot></slot>
+        </div>
+        <div class="introduction" :class="classPrefix&&`{classPrefix}introduction`"> 
+            <slot name="introduction"></slot>
+        </div> 
+        <div class="other" :class="classPrefix&&`{classPrefix}other`">
+            <slot name="other"></slot>
+        </div> 
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Layout",
+        props:['classPrefix']
+    }
+</script>
+```
+```
+// money.vue
+<template>
+    <Layout contentClass="moneyContent" classPrefix="money">
+       moneyContent
+    </Layout>
+</template>
+```
+
+
+
+vue-deep

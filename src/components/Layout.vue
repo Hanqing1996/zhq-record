@@ -1,6 +1,6 @@
 <template>
-    <div class="wrapper">
-        <div class="content">
+    <div class="wrapper" :class="prefix&&`${prefix}-wrapper`">
+        <div class="content" :class="prefix&&`${prefix}-content`">
             <slot></slot>
         </div>
         <Nav/>
@@ -9,7 +9,8 @@
 
 <script>
     export default {
-        name: "Layout"
+        name: "Layout",
+        props:['prefix']
     }
 </script>
 
@@ -22,7 +23,6 @@
     }
 
     .content {
-        border: 1px solid red;
         overflow: auto;
         flex-grow: 1;
     }

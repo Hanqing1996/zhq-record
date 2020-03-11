@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <Layout prefix="labels">
         Labels
     </Layout>
 </template>
