@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <Layout>
         Labels
-    </div>
+    </Layout>
 </template>
 
 <script>
