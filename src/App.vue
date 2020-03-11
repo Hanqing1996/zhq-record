@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <Nav/>
-    <hr>
     <router-view/>
-  </div>
 </template>
 <script lang="ts">
-  export default {
-    name:'App'
-  }
+    export default {
+        name: 'App'
+    }
 </script>
 
 <style lang="scss">
+    * {margin: 0;padding: 0; box-sizing: border-box;}
+    *::before {box-sizing: border-box}
+    *::after {box-sizing: border-box}
+    h1, h2, h3, h4, h5, h6 {font-weight: normal}
 </style>
