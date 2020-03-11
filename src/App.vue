@@ -8,8 +8,12 @@
 </script>
 
 <style lang="scss">
-    * {margin: 0;padding: 0; box-sizing: border-box;}
-    *::before {box-sizing: border-box}
-    *::after {box-sizing: border-box}
-    h1, h2, h3, h4, h5, h6 {font-weight: normal}
+    @import "~@/assets/style/reset.scss";
+    @import "~@/assets/style/font.scss";
+    @import "~@/assets/style/var.scss";
+    body{
+        font-family: $font-hei;
+        line-height: 1.5em;
+    }
+
 </style>
