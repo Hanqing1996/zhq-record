@@ -263,5 +263,59 @@ input{
 ```
 
 
+#### :class 里的 js 语法
+> ""里的是js语法,''里的是字符串
+```
+<li :class="type==='+'&&'selected'" @click="selectType('+')">收入</li>
+```
 
-vue-deep
+#### 编译时，运行时
+* 编译时
+> TypeScript=>JavaScript（tsc做的，类型检查也由它负责）
+
+> Ts 在编译时报错
+* 运行时
+> JavaScript 在浏览器中运行
+
+> Js 在运行时报错
+* @Prop(Number) xxx: number|undefined
+> Number 为运行时类型
+```
+// 模板的编译在运行时，即在"运行时"（浏览器环境中）会检查 xxx 的类型是否满足 Number
+<Types :xxx="123"/>
+```
+> number|undefined 为编译时环境
+```
+// 对该函数的解析在编译时，即在"编译时"会检查 this.xxx 的类型是否满足 number|undefined
+dealXXX(){
+    this.xxx.toString()
+}
+```
+
+#### Vue 单文件组件的三种写法
+1. 用 JS 对象
+```
+<script lang="js">
+ export default { data, props, methods, created, ...}
+</script>
+```
+2. 用 TS 类
+```
+<script lang="ts">
+ @Component
+ export default class XXX extends Vue{
+     xxx: string = 'hi';
+     @Prop(Number) xxx: number|undefined;
+ }
+</script>
+```
+3. 用 JS 类 
+```
+<script lang="js">
+
+ @Component
+ export default class XXX extends Vue{
+     xxx = 'hi'
+ }
+</script>
+```

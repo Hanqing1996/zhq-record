@@ -57,8 +57,12 @@
 </template>
 
 <script>
-    export default {
-        name: "Tags"
+    import Vue from 'vue';
+    import {Component} from 'vue-property-decorator';
+
+    @Component
+    export default class Tags extends Vue {
+
     }
 </script>
 
@@ -75,7 +79,7 @@
         > .current {
             display: flex;
             flex-wrap: wrap;
-            max-height: 30vh;
+            max-height: 12vh;
             overflow: auto;
             > li {
                 background: #d9d9d9;
