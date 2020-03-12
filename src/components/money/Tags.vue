@@ -63,7 +63,8 @@
                 margin-right: 12px;
                 margin-top: 4px;
                 &.selected {
-                    background-color: darken(red, 0.5);
+                    background: darken($bg, 50%);
+                    color: white;
                 }
             }
         }
