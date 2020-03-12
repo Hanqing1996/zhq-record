@@ -7,6 +7,7 @@
     </Layout>
 </template>
 <script lang="ts">
+    
     import Tags from '@/components/money/Tags.vue'
     import Notes from '@/components/money/Notes.vue'
     import Types from '@/components/money/Types.vue'
@@ -21,7 +22,10 @@
         type: '+'|'-';
         notes: string;
         amount: number;
+        createdAt?: Date;
     }
+
+    const recordList: Record []=JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
     @Component({
         components: {Tags, Notes, Types, NumberPad}
@@ -35,6 +39,7 @@
             notes:'',
             amount:0
         }
+        recordList: Record []=recordList
 
         onUpdateTags(selectedTags: string[]){
             this.record.tags=selectedTags
@@ -42,8 +47,23 @@
         onUpdateNotes(notes: string){
             this.record.notes=notes
         }
+
         setNewRecord() {
-            console.log(this.record);
+            this.record.createdAt= new Date();
+            const newRecord=JSON.parse(JSON.stringify(this.record))
+            this.recordList.push(newRecord)
+            // 重置
+            this.record={
+                tags:[],
+                type:'+',
+                notes:'',
+                amount:0
+            }
+        }
+
+        @Watch('recordList')
+        onRecordListChange(){
+            window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
         }
     }
 

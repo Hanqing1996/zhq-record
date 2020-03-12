@@ -17,6 +17,11 @@
         selectType(type: '+'|'-'){
             this.$emit('update:type',type)
         }
+
+        @Watch('type')
+        onValueChange(type: number){
+            console.log('type 变');
+        }
     }
 
 </script>
