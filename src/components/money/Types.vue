@@ -7,14 +7,15 @@
 
 <script lang="ts">
     import Vue from 'vue'
-    import {Component, Prop} from "vue-property-decorator";
+    import {Component, Prop, Watch} from "vue-property-decorator";
 
     @Component
     export default class Types extends Vue{
-        type='-';
+
+        @Prop(String) readonly type: string | undefined;
 
         selectType(type: '+'|'-'){
-            this.type=type
+            this.$emit('update:type',type)
         }
     }
 

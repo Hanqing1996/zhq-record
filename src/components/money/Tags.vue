@@ -1,6 +1,5 @@
 <template>
     <div class="tags">
-        {{selectedTags}}
         <ul class="current">
             <li v-for="item in tags" :key=item @click="toggle(item)" :class="{selected:selectedTags.indexOf(item)>=0}">
                 {{item}}
@@ -20,11 +19,13 @@
     export default class Tags extends Vue {
         selectedTags: string [] = []
 
-        @Prop(Array) tags: string[] | undefined;
+        // readonly 会禁止我们修改作为 prop 的 tags
+        @Prop(Array) readonly tags: string[] | undefined;
 
         toggle(tag: string) {
             const index = this.selectedTags.indexOf(tag)
             index >= 0 ? this.selectedTags.splice(index, 1) : this.selectedTags.push(tag)
+            this.$emit('update:value', this.selectedTags)
         }
 
         create() {
@@ -54,7 +55,8 @@
             max-height: 12vh;
             overflow: auto;
             > li {
-                background: #d9d9d9;
+                $bg:#d9d9d9;
+                background: $bg;
                 $h: 24px;
                 height: $h;
                 line-height: $h;
