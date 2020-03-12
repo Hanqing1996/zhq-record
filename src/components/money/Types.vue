@@ -12,7 +12,7 @@
     @Component
     export default class Types extends Vue{
         type='-';
-        @Prop(Number) xxx: number|undefined
+
         selectType(type: '+'|'-'){
             this.type=type
         }
