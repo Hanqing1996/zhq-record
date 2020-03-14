@@ -16,8 +16,9 @@
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
 
-    import Model from '@/model.ts'
-
+    import versionModel from '@/models/versionModel'
+    import moneyModel from '@/models/moneyModel'
+    import tagListModel from '@/models/tagListModel'
 
     /**
      * 数据库版本迁移
@@ -25,25 +26,25 @@
      * @param newVersion
      */
     function translateData(newVersion: string) {
-        const oldVersion = Model.fetch('version')
-        const oldRecordList: RecordItem [] = Model.fetch('recordList')
+        const oldVersion = versionModel.fetch()
+        const oldRecordList: RecordItem [] = moneyModel.fetch()
         if (oldVersion === '0.01') {
             const newRecordList = oldRecordList.map(record => {
                 return {...record, createdAt: new Date(0)}
             })
-            Model.save('recordList', newRecordList)
+            moneyModel.save( newRecordList)
         }
-        Model.save('version',newVersion)
+        versionModel.save(newVersion)
     }
 
-    const currentRecordList: RecordItem [] = Model.fetch('recordList')
+    const currentRecordList: RecordItem [] = moneyModel.fetch()
 
     @Component({
         components: {Tags, Notes, Types, NumberPad}
     })
 
     export default class Money extends Vue {
-        tags = ['衣', '食', '住', '行']
+        tags = tagListModel.fetch()
         record: RecordItem = {
             tags: [],
             type: '+',
@@ -62,7 +63,7 @@
 
         setNewRecord() {
             this.record.createdAt = new Date();
-            const newRecord = Model.cloneRecord(this.record)
+            const newRecord = moneyModel.cloneRecord(this.record)
             this.recordList.push(newRecord)
             // 重置
             this.record = {
@@ -75,8 +76,15 @@
 
         @Watch('recordList')
         onRecordListChange() {
-            Model.save('recordList',this.recordList)
+            moneyModel.save(this.recordList)
         }
+
+        @Watch('tags')
+        onTagListChange(){
+            const length=this.tags.length
+            tagListModel.add(this.tags[length-1])
+        }
+
     }
 
 

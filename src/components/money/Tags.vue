@@ -17,10 +17,10 @@
 
     @Component
     export default class Tags extends Vue {
-        selectedTags: string [] = []
+        selectedTags: TagList = []
 
         // readonly 会禁止我们修改作为 prop 的 tags
-        @Prop(Array) readonly tags: string[] | undefined;
+        @Prop(Array) readonly tags: TagList | undefined;
 
         toggle(tag: string) {
             const index = this.selectedTags.indexOf(tag)
@@ -33,7 +33,7 @@
             if (!name) {
                 window.alert('标签名不能为空');
             } else {
-                this.$emit('update:tags', [...(this.tags as string[]), name])
+                this.$emit('update:tags', [...(this.tags as TagList), name])
             }
         }
     }

@@ -1,15 +1,15 @@
 const localStorageKeyName = 'recordList'
 
-const model = {
+const moneyModel = {
     cloneRecord(data:RecordItem[]|RecordItem){
         return JSON.parse(JSON.stringify(data))
     },
-    fetch(localStorageKeyName:string) {
+    fetch() {
         return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
     },
-    save(localStorageKeyName:string,newData: RecordItem[]|Version) {
+    save(newData: RecordItem[]|Version) {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(newData))
     }
 }
 
-export default model;
+export default moneyModel;

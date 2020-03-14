@@ -322,14 +322,14 @@ dealXXX(){
 
 #### 在 ts 中引用 js 文件
 ```
-// model.js
-const model={
+// moneyModel.js
+const moneyModel={
 }
-export {model}
+export {moneyModel}
 ```
 ```
 // ts
-const model=require('./model.js').model
+const moneyModel=require('./moneyModel.js').moneyModel
 ```
 
 

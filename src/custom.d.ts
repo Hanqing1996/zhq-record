@@ -7,3 +7,5 @@ type RecordItem = {
 }
 
 type Version=string
+
+type TagList=string[]
