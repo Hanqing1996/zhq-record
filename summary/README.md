@@ -319,3 +319,21 @@ dealXXX(){
  }
 </script>
 ```
+
+#### 在 ts 中引用 js 文件
+```
+// model.js
+const model={
+}
+export {model}
+```
+```
+// ts
+const model=require('./model.js').model
+```
+
+
+#### Vue 不支持直接从 *.vue 文件中 import 一个 type
+
+#### 开发规范
+* 对于 type,应该一律写到 custom.d.ts 里，以便所有文件引用 

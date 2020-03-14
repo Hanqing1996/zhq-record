@@ -16,14 +16,7 @@
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
 
-
-    type Record = {
-        tags: string[];
-        type: '+' | '-';
-        notes: string;
-        amount: number;
-        createdAt?: Date;
-    }
+    import Model from '@/model.ts'
 
 
     /**
@@ -32,18 +25,18 @@
      * @param newVersion
      */
     function translateData(newVersion: string) {
-        const oldVersion = window.localStorage.getItem('version')
-        const oldRecordList: Record [] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
-        if(oldVersion==='0.01'){
-            const newRecordList=oldRecordList.map(record=>{
-                return {...record,createdAt:new Date(0)}
+        const oldVersion = Model.fetch('version')
+        const oldRecordList: RecordItem [] = Model.fetch('recordList')
+        if (oldVersion === '0.01') {
+            const newRecordList = oldRecordList.map(record => {
+                return {...record, createdAt: new Date(0)}
             })
-            window.localStorage.setItem('recordList', JSON.stringify(newRecordList))
+            Model.save('recordList', newRecordList)
         }
-        window.localStorage.setItem('version',newVersion)
+        Model.save('version',newVersion)
     }
 
-    const currentRecordList: Record [] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+    const currentRecordList: RecordItem [] = Model.fetch('recordList')
 
     @Component({
         components: {Tags, Notes, Types, NumberPad}
@@ -51,13 +44,13 @@
 
     export default class Money extends Vue {
         tags = ['衣', '食', '住', '行']
-        record: Record = {
+        record: RecordItem = {
             tags: [],
             type: '+',
             notes: '',
             amount: 0
         }
-        recordList: Record [] = currentRecordList
+        recordList: RecordItem [] = currentRecordList
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
@@ -68,8 +61,8 @@
         }
 
         setNewRecord() {
-            this.record.createdAt= new Date();
-            const newRecord = JSON.parse(JSON.stringify(this.record))
+            this.record.createdAt = new Date();
+            const newRecord = Model.cloneRecord(this.record)
             this.recordList.push(newRecord)
             // 重置
             this.record = {
@@ -82,7 +75,7 @@
 
         @Watch('recordList')
         onRecordListChange() {
-            window.localStorage.setItem('recordList', JSON.stringify(this.recordList))
+            Model.save('recordList',this.recordList)
         }
     }
 
