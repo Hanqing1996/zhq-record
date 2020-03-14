@@ -2,7 +2,7 @@
     <div class="tags">
         <ul class="current">
             <li v-for="item in tags" :key=item @click="toggle(item)" :class="{selected:selectedTags.indexOf(item)>=0}">
-                {{item}}
+                {{item.name}}
             </li>
         </ul>
         <div class="new">

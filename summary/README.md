@@ -269,6 +269,10 @@ input{
 <li :class="type==='+'&&'selected'" @click="selectType('+')">收入</li>
 ```
 
+```
+<router-link v-for="tag in tags" :key=tag to="`/labels/edit/${tag}`">
+```
+
 #### 编译时，运行时
 * 编译时
 > TypeScript=>JavaScript（tsc做的，类型检查也由它负责）
