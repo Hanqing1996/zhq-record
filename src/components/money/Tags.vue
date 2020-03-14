@@ -1,7 +1,7 @@
 <template>
     <div class="tags">
         <ul class="current">
-            <li v-for="item in tags" :key=item @click="toggle(item)" :class="{selected:selectedTags.indexOf(item)>=0}">
+            <li v-for="item in tags" :key=item.id @click="toggle(item.name)" :class="{selected:selectedTags.indexOf(item)>=0}">
                 {{item.name}}
             </li>
         </ul>
@@ -33,7 +33,7 @@
             if (!name) {
                 window.alert('标签名不能为空');
             } else {
-                this.$emit('update:tags', [...(this.tags as TagList), name])
+                this.$emit('update:tags', [...(this.tags as TagList), {id:name,name}])
             }
         }
     }
