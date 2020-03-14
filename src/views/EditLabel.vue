@@ -6,7 +6,7 @@
         </div>
         <FormItem field-name="标签名" placeholder="请在这里输入标签名"/>
         <div class="deleteTag-wrapper">
-            <button class="deleteTag">删除标签</button>
+            <Button>删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -56,18 +56,9 @@
         padding: 16px;
         margin-top: 44-16px;
     }
-    .deleteTag {
-        background: #767676;
-        color: white;
-        border-radius: 4px;
-        border: none;
-        height: 40px;
-        padding: 0 16px;
-        &-wrapper {
-            text-align: center;
-            padding: 16px;
-            margin-top: 44-16px;
-        }
+    .deleteTag-wrapper {
+        text-align: center;
+        padding: 16px;
+        margin-top: 44-16px;
     }
-
 </style>

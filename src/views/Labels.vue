@@ -7,7 +7,9 @@
             </router-link>
         </div>
         <div class="createTag-wrapper">
-            <button class="createTag" @click="createTag">新建标签</button>
+            <Button @click.native="createTag">
+                新建标签
+            </Button>
         </div>
     </Layout>
 </template>
@@ -60,17 +62,9 @@
             }
         }
     }
-    .createTag {
-        background: #767676;
-        color: white;
-        border-radius: 4px;
-        border: none;
-        height: 40px;
-        padding: 0 16px;
-        &-wrapper {
-            text-align: center;
-            padding: 16px;
-            margin-top: 44-16px;
-        }
+    .createTag-wrapper {
+        text-align: center;
+        padding: 16px;
+        margin-top: 44-16px;
     }
 </style>
