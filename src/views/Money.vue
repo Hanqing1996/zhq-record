@@ -1,7 +1,7 @@
 <template>
     <Layout prefix="money">
         <Tags :tags.sync="tags" @update:value="onUpdateTags($event)"/>
-        <Notes @update:notes="onUpdateNotes($event)"/>
+        <FormItem field-name="备注" placeholder="请在这里输入备注" @update:notes="onUpdateNotes($event)"/>
         <Types :type.sync="record.type"/>
         <NumberPad :value.sync="record.amount" @submit="setNewRecord"/>
     </Layout>
@@ -9,7 +9,7 @@
 <script lang="ts">
 
     import Tags from '@/components/money/Tags.vue'
-    import Notes from '@/components/money/Notes.vue'
+    import FormItem from '@/components/money/FormItem .vue'
     import Types from '@/components/money/Types.vue'
     import NumberPad from '@/components/money/NumberPad.vue'
 
@@ -40,7 +40,7 @@
     const currentRecordList: RecordItem [] = moneyModel.fetch()
 
     @Component({
-        components: {Tags, Notes, Types, NumberPad}
+        components: {Tags, FormItem, Types, NumberPad}
     })
 
     export default class Money extends Vue {
@@ -82,7 +82,7 @@
         @Watch('tags')
         onTagListChange(){
             const length=this.tags.length
-            tagListModel.add(this.tags[length-1])
+            tagListModel.add(this.tags[length-1].name)
         }
 
     }

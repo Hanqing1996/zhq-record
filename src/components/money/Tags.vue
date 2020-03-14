@@ -1,7 +1,7 @@
 <template>
     <div class="tags">
         <ul class="current">
-            <li v-for="item in tags" :key=item.id @click="toggle(item.name)" :class="{selected:selectedTags.indexOf(item)>=0}">
+            <li v-for="item in tags" :key=item.id @click="toggle(item.name)" :class="{selected:selectedTags.map(tag=>tag.name).indexOf(item.name)>=0}">
                 {{item.name}}
             </li>
         </ul>
@@ -22,9 +22,10 @@
         // readonly 会禁止我们修改作为 prop 的 tags
         @Prop(Array) readonly tags: TagList | undefined;
 
-        toggle(tag: string) {
-            const index = this.selectedTags.indexOf(tag)
-            index >= 0 ? this.selectedTags.splice(index, 1) : this.selectedTags.push(tag)
+        toggle(tagName: string) {
+            const names=this.selectedTags.map(tag=>tag.name)
+            const index = names.indexOf(tagName)
+            index >= 0 ? this.selectedTags.splice(index, 1) : this.selectedTags.push({id:tagName,name:tagName})
             this.$emit('update:value', this.selectedTags)
         }
 

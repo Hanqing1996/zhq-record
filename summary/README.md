@@ -268,7 +268,7 @@ input{
 ```
 <li :class="type==='+'&&'selected'" @click="selectType('+')">收入</li>
 ```
-
+> `/labels/edit/${tag}` 不是一个字符串，是一句 js 代码
 ```
 <router-link v-for="tag in tags" :key=tag to="`/labels/edit/${tag}`">
 ```
