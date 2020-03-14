@@ -6,6 +6,7 @@ interface TagListModelInterface {
     add: (name: string) => 'duplicated' | 'success',
     update: (id: string, name: string) => 'not found' | 'duplicated' | 'success',
     save: () => void
+    remove: (id: string) => 'not found' | 'success',
 }
 
 const tagListModel: TagListModelInterface = {
@@ -33,7 +34,11 @@ const tagListModel: TagListModelInterface = {
 
     },
     remove(id) {
-
+        const idList = this.data.map(tag => tag.id)
+        if (idList.indexOf(id) < 0) return 'not found'
+        this.data=this.data.filter(tag=>tag.id!==id)
+        this.save()
+        return 'success'
     },
     save() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))

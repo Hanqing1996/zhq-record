@@ -8,7 +8,7 @@
         <FormItem class="edit" field-name="标签名" placeholder="请在这里输入标签名" :value="tag.name"
         @update:value="updateTagName(($event))"/>
         <div class="deleteTag-wrapper">
-            <Button>删除标签</Button>
+            <Button @click.native="removeTag">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -37,6 +37,9 @@
         }
         updateTagName(newName: string){
             tagListModel.update(this.tag.id,newName)
+        }
+        removeTag(){
+            tagListModel.remove(this.tag.id)
         }
     }
 
