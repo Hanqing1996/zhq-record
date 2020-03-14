@@ -341,3 +341,14 @@ const moneyModel=require('./moneyModel.js').moneyModel
 
 #### 开发规范
 * 对于 type,应该一律写到 custom.d.ts 里，以便所有文件引用 
+
+
+#### vue-router
+* 回退到刚才的页面
+```
+this.$router.back()
+```
+* 跳到404页面
+```
+this.$router.replace('/404')
+```
