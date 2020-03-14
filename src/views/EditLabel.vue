@@ -1,10 +1,11 @@
 <template>
     <Layout prefix="labelsEdit">
         <div class="navBar">
-            <Icon name="left"></Icon>
+            <Icon name="left" class="left-icon"></Icon>
             <span class="title">编辑标签</span>
+            <Icon class="right-icon"></Icon>
         </div>
-        <FormItem field-name="标签名" placeholder="请在这里输入标签名"/>
+        <FormItem class="edit" field-name="标签名" placeholder="请在这里输入标签名"/>
         <div class="deleteTag-wrapper">
             <Button>删除标签</Button>
         </div>
@@ -43,13 +44,18 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        > .title {
-            padding-right: 50px;
-        }
-        > svg {
+        > .left-icon {
             width: 24px;
             height: 24px;
         }
+        > .right-icon {
+            width: 24px;
+            height: 24px;
+        }
+    }
+    .edit{
+        background: white;
+        margin-top: 8px;
     }
     .button-wrapper {
         text-align: center;
