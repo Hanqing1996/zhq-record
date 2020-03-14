@@ -4,6 +4,7 @@ interface TagListModelInterface {
     data: TagList,
     fetch: () => TagList,
     add: (name: string) => 'duplicated' | 'success',
+    update: (id: string, name: string) => 'not found' | 'duplicated' | 'success',
     save: () => void
 }
 
@@ -19,6 +20,20 @@ const tagListModel: TagListModelInterface = {
         this.data.push({id: name, name})
         this.save()
         return 'success';
+    },
+    update(id, name) {
+        const idList = this.data.map(tag => tag.id)
+        if (idList.indexOf(id) < 0) return 'not found'
+        const names = this.data.map(tag => tag.name)
+        if (names.indexOf(name) >= 0) return 'duplicated'
+        const tag = this.data.filter(tag => tag.id === id)[0]
+        tag.name = name
+        this.save()
+        return 'success'
+
+    },
+    remove(id) {
+
     },
     save() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))

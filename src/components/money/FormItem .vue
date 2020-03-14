@@ -17,7 +17,6 @@ export default class FormItem extends Vue {
     @Prop(String) readonly placeholder!: string|undefined
 
     updateValue(event){
-        console.log(event.target.value);
         this.$emit('update:value',event.target.value)
     }
 }
