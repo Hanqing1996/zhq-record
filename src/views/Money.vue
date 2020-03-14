@@ -1,7 +1,7 @@
 <template>
     <Layout prefix="money">
         <Tags :tags.sync="tags" @update:value="onUpdateTags($event)"/>
-        <FormItem field-name="备注" placeholder="请在这里输入备注" @update:notes="onUpdateNotes($event)"/>
+        <FormItem field-name="备注" placeholder="请在这里输入备注" :value.sync="value" @update:value="onUpdateNotes($event)"/>
         <Types :type.sync="record.type"/>
         <NumberPad :value.sync="record.amount" @submit="setNewRecord"/>
     </Layout>
@@ -26,6 +26,7 @@
      * @param newVersion
      */
     function translateData(newVersion: string) {
+
         const oldVersion = versionModel.fetch()
         const oldRecordList: RecordItem [] = moneyModel.fetch()
         if (oldVersion === '0.01') {
@@ -44,6 +45,7 @@
     })
 
     export default class Money extends Vue {
+        value=""
         tags = tagListModel.fetch()
         record: RecordItem = {
             tags: [],
