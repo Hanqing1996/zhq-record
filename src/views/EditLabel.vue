@@ -24,10 +24,10 @@
 
     @Component({components: {FormItem}})
     export default class EditLabel extends Vue {
-        tag: Tag = undefined
+        tag?: Tag = undefined
 
         created() {
-            const {id: targetId} = this.$route.params // 路由操作
+            const targetId = Number(this.$route.params.id) // 路由操作
             tagListModel.fetch()
             const tags = tagListModel.data
             const tag = tags.filter(tag => tag.id === targetId)[0]
@@ -40,11 +40,14 @@
         }
 
         updateTagName(newName: string) {
-            tagListModel.update(this.tag.id, newName)
+            this.tag&&tagListModel.update(this.tag.id, newName)
         }
 
         removeTag() {
-            tagListModel.remove(this.tag.id)
+            const message=this.tag&&tagListModel.remove(this.tag.id)
+            if(message==='success'){
+                this.$router.replace('/labels')
+            }
         }
     }
 
