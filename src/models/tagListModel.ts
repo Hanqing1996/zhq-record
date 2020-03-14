@@ -1,12 +1,15 @@
 const localStorageKeyName = 'tagList'
 
+
+import createId from '@/lib/idCreator.ts'
+
 interface TagListModelInterface {
     data: TagList,
     fetch: () => TagList,
     add: (name: string) => 'duplicated' | 'success',
-    update: (id: string, name: string) => 'not found' | 'duplicated' | 'success',
+    update: (id: number, name: string) => 'not found' | 'duplicated' | 'success',
     save: () => void
-    remove: (id: string) => 'not found' | 'success',
+    remove: (id: number) => 'not found' | 'success',
 }
 
 const tagListModel: TagListModelInterface = {
@@ -18,7 +21,7 @@ const tagListModel: TagListModelInterface = {
     add(name: string) {
         const names = this.data.map(tag => tag.name)
         if (names.indexOf(name) >= 0) return 'duplicated'
-        this.data.push({id: name, name})
+        this.data.push({id: createId(), name})
         this.save()
         return 'success';
     },
@@ -28,7 +31,7 @@ const tagListModel: TagListModelInterface = {
         const names = this.data.map(tag => tag.name)
         if (names.indexOf(name) >= 0) return 'duplicated'
         const tag = this.data.filter(tag => tag.id === id)[0]
-        tag.id=name
+        tag.id=createId()
         tag.name = name
         this.save()
         return 'success'

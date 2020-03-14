@@ -8,6 +8,6 @@ type RecordItem = {
 
 type Version=string
 
-type Tag={id:string,name:string}
+type Tag={id:number,name:string}
 
 type TagList=Tag[]
