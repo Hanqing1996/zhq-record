@@ -35,6 +35,12 @@
         }
         recordList: RecordItem [] = window.recordList
 
+
+        created(){
+            // console.log(tagListModel.data);
+            // console.log(window.tagList);
+        }
+
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
         }

@@ -380,3 +380,22 @@ export default class B extends Vue {
 #### tagListViewModel 负责整个项目中 tags 的数据管理与同步
 
 #### window 封装了所有的 model
+
+#### count 
+```
+  @Component({
+        components: {Tags, FormItem, Types, NumberPad},
+        computed:{
+            count(){
+                return person.count
+            }
+        }
+    })
+
+    export default class Money extends Vue {
+        aaa=person // 让 
+
+        add(){
+            person.count+=1
+        }
+```

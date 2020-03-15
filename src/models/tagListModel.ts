@@ -29,7 +29,8 @@ const tagListModel: TagListModelInterface = {
     remove(id) {
         const idList = this.data.map(tag => tag.id)
         if (idList.indexOf(id) < 0) return 'not found'
-        this.data = this.data.filter(tag => tag.id !== id)
+        const targetIndex=idList.indexOf(id)
+        this.data.splice(targetIndex,1)
         this.save()
         return 'success'
     },

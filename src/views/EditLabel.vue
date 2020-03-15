@@ -28,7 +28,6 @@
 
         created() {
             const targetId = Number(this.$route.params.id) // 路由操作
-            tagListModel.fetch()
             const tags = tagListModel.data
             const tag = tags.filter(tag => tag.id === targetId)[0]
             if (tag) {
