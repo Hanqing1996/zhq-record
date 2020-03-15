@@ -32,12 +32,15 @@
                 window.alert('标签名不能为空');
             } else {
                 const message = tagListModel.add(name)
-                message === 'duplicated' && window.alert('标签名重复');
-                /**
-                 * 这里不需要再次给 this.tags 赋值。
-                 * 因为 this.tags 的值是一个数组地址，tagListModel.data 更新后 this.tags 也会自动更新
-                 */
-                //this.tags=tagListModel.data;
+                if(message === 'duplicated') {
+                    window.alert('标签名重复');
+                } else{
+                    // 添加成功
+
+                    /**
+                     * this.tags 会自动更新，因为它与 tagListModel.data 指向同一个地址
+                     */
+                }
             }
         }
     }
