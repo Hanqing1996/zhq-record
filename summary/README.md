@@ -352,3 +352,26 @@ this.$router.back()
 ```
 this.$router.replace('/404')
 ```
+
+#### 每次 由 A 页面跳转到 B 页面，B页面的组件就会重新经历一次生命周期(created->mounted)
+```
+import Vue from 'vue';
+import {Component, Watch} from 'vue-property-decorator';
+
+console.log('这句话只打印一次')
+
+let tagsData=tagListModel.fetch()
+
+@Component({
+    components: {Tags, FormItem, Types, NumberPad}
+})
+export default class B extends Vue {
+        tags = tagsData
+        created(){
+            console.log('A to B,created again')
+        }
+        mounted(){
+            console.log('A to B,mounted again')
+        }
+}
+```

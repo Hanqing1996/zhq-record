@@ -1,5 +1,6 @@
 <template>
     <Layout prefix="money">
+        {{recordList}}
         <Tags :tags.sync="tags" @update:value="onUpdateTags($event)"/>
         <FormItem field-name="备注" placeholder="请在这里输入备注" :value.sync="value" @update:value="onUpdateNotes($event)"/>
         <Types :type.sync="record.type"/>
@@ -33,20 +34,22 @@
             const newRecordList = oldRecordList.map(record => {
                 return {...record, createdAt: new Date(0)}
             })
-            moneyModel.save( newRecordList)
+            moneyModel.save(newRecordList)
         }
         versionModel.save(newVersion)
     }
 
     const currentRecordList: RecordItem [] = moneyModel.fetch()
 
+    // 下拉数据
+    tagListModel.fetch()
+
     @Component({
         components: {Tags, FormItem, Types, NumberPad}
     })
-
     export default class Money extends Vue {
-        value=""
-        tags = tagListModel.fetch()
+        value = ""
+        tags = tagListModel.data
         record: RecordItem = {
             tags: [],
             type: '+',
@@ -54,6 +57,11 @@
             amount: 0
         }
         recordList: RecordItem [] = currentRecordList
+
+        created(){
+            console.log('money created');
+            console.log(currentRecordList);
+        }
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
@@ -82,14 +90,11 @@
         }
 
         @Watch('tags')
-        onTagListChange(){
-            const length=this.tags.length
-            tagListModel.add(this.tags[length-1].name)
+        onTagListChange() {
+            const length = this.tags.length
+            tagListModel.add(this.tags[length - 1].name)
         }
-
     }
-
-
 </script>
 
 <style lang="scss">
