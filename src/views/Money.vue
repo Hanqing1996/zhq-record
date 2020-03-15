@@ -1,6 +1,5 @@
 <template>
     <Layout prefix="money">
-        {{recordList}}
         <Tags :tags.sync="tags" @update:value="onUpdateTags($event)"/>
         <FormItem field-name="备注" placeholder="请在这里输入备注" :value.sync="value" @update:value="onUpdateNotes($event)"/>
         <Types :type.sync="record.type"/>
@@ -17,51 +16,24 @@
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
 
-    import versionModel from '@/models/versionModel'
-    import moneyModel from '@/models/moneyModel'
-    import tagListModel from '@/models/tagListModel'
+    import recordModel from '@/models/recordModel'
+    import tagListModel from "@/models/tagListModel";
 
-    /**
-     * 数据库版本迁移
-     * 迁移应该是复用的。比如0.01=>0.03,应该去调用之前已经写好的 0.01=>0.02,0.02=>0.03 的迁移规则
-     * @param newVersion
-     */
-    function translateData(newVersion: string) {
-
-        const oldVersion = versionModel.fetch()
-        const oldRecordList: RecordItem [] = moneyModel.fetch()
-        if (oldVersion === '0.01') {
-            const newRecordList = oldRecordList.map(record => {
-                return {...record, createdAt: new Date(0)}
-            })
-            moneyModel.save(newRecordList)
-        }
-        versionModel.save(newVersion)
-    }
-
-    const currentRecordList: RecordItem [] = moneyModel.fetch()
-
-    // 下拉数据
-    tagListModel.fetch()
+    window.tagList
 
     @Component({
         components: {Tags, FormItem, Types, NumberPad}
     })
     export default class Money extends Vue {
         value = ""
-        tags = tagListModel.data
+        tags = window.tagList
         record: RecordItem = {
             tags: [],
             type: '+',
             notes: '',
             amount: 0
         }
-        recordList: RecordItem [] = currentRecordList
-
-        created(){
-            console.log('money created');
-            console.log(currentRecordList);
-        }
+        recordList: RecordItem [] = window.recordList
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
@@ -73,8 +45,8 @@
 
         setNewRecord() {
             this.record.createdAt = new Date();
-            const newRecord = moneyModel.cloneRecord(this.record)
-            this.recordList.push(newRecord)
+            recordModel.add(this.record)
+
             // 重置
             this.record = {
                 tags: [],
@@ -84,15 +56,11 @@
             }
         }
 
-        @Watch('recordList')
-        onRecordListChange() {
-            moneyModel.save(this.recordList)
-        }
 
         @Watch('tags')
         onTagListChange() {
             const length = this.tags.length
-            tagListModel.add(this.tags[length - 1].name)
+            window.addTag(this.tags[length - 1].name)
         }
     }
 </script>

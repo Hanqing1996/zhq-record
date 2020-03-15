@@ -1,6 +1,6 @@
 const localStorageKeyName = 'version'
 
-const moneyModel = {
+const versionModel = {
     fetch() {
         return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
     },
@@ -9,4 +9,4 @@ const moneyModel = {
     }
 }
 
-export default moneyModel;
+export default versionModel;

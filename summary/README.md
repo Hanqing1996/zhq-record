@@ -326,14 +326,14 @@ dealXXX(){
 
 #### 在 ts 中引用 js 文件
 ```
-// moneyModel.js
-const moneyModel={
+// recordModel.js
+const recordModel={
 }
-export {moneyModel}
+export {recordModel}
 ```
 ```
 // ts
-const moneyModel=require('./moneyModel.js').moneyModel
+const recordModel=require('./recordModel.js').recordModel
 ```
 
 
@@ -375,3 +375,8 @@ export default class B extends Vue {
         }
 }
 ```
+
+
+#### tagListViewModel 负责整个项目中 tags 的数据管理与同步
+
+#### window 封装了所有的 model
