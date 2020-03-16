@@ -15,6 +15,8 @@ type RecordList=RecordItem[]
 
 interface RecordStore{
     recordList:RecordList,
+    cloneRecord:(record: RecordList | RecordItem)=>RecordList|RecordItem,
+    save:()=>void,
     addRecord:(record:RecordItem)=>void
 }
 

@@ -1,6 +1,6 @@
 <template>
     <Layout prefix="money">
-        <Tags :tags="tags" @update:value="onUpdateTags($event)" />
+        <Tags :tags="tags" @update:value="onUpdateTags($event)"/>
         <FormItem field-name="备注" placeholder="请在这里输入备注" :value.sync="value" @update:value="onUpdateNotes($event)"/>
         <Types :type.sync="record.type"/>
         <NumberPad :value.sync="record.amount" @submit="setNewRecord"/>
@@ -19,11 +19,12 @@
     import {Component, Watch} from 'vue-property-decorator';
 
     @Component({
-        components: {Tags, FormItem, Types, NumberPad}
+        components: {Tags, FormItem, Types, NumberPad},
+        computed: {}
     })
     export default class Money extends Vue {
         value = ""
-        tags =store.tagList
+        tags = store.tagList
         record: RecordItem = {
             tags: [],
             type: '+',
@@ -31,6 +32,14 @@
             amount: 0
         }
         recordList: RecordItem [] = store.recordList
+
+
+        mounted() {
+            setTimeout(() => {
+                store.addCount()
+                console.log(store.count);
+            }, 3000)
+        }
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags

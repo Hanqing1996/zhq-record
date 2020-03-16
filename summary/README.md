@@ -382,23 +382,35 @@ export default class B extends Vue {
 
 #### window 封装了所有的 model
 
-#### count 
+#### computed 里的值和引用
 ```
-  @Component({
-        components: {Tags, FormItem, Types, NumberPad},
-        computed:{
-            count(){
-                return person.count
-            }
-        }
-    })
+computed: {
+    count() {
+        return store.count
+    }
+}
 
-    export default class Money extends Vue {
-        aaa=person // 让 
+store = store
 
-        add(){
-            person.count+=1
-        }
+mounted() {
+    setTimeout(() => {
+        store.addCount()
+        console.log(store.count);
+    }, 3000)
+}
+```
+
+#### 引用传递可以写成 computed 形式
+```
+tags = store.tagList
+```
+可以写成
+```
+computed: {
+    tags() {
+        return store.tagList
+    }
+}
 ```
 
 #### 在去除 $emit 的情况下依旧保持单向数据流
@@ -425,7 +437,7 @@ addTag(tagName: string){
 ```
 // 子组件
 
-
+store.addTag(name)
 ```
 ```
 // 父组件
@@ -433,3 +445,11 @@ addTag(tagName: string){
      
 tags =store.tagList
 ```
+
+#### vuex
+* state
+> data
+* mutation
+> method
+* action
+> 异步操作
