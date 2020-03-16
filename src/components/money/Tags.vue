@@ -6,7 +6,7 @@
             </li>
         </ul>
         <div class="new">
-            <button @click="create">新增标签</button>
+            <button @click="createTag">新增标签</button>
         </div>
     </div>
 </template>
@@ -14,9 +14,11 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Component, Prop} from 'vue-property-decorator';
+    import TagHelper from "@/mixins/TagHelper";
+    import {mixins} from "vue-class-component";
 
     @Component
-    export default class Tags extends Vue {
+    export default class Tags extends mixins(TagHelper) {
         selectedTags: string[] = []
 
         // readonly 会禁止我们修改作为 prop 的 tags
@@ -28,14 +30,6 @@
             this.$emit('update:value', this.selectedTags)
         }
 
-        create() {
-            const name = window.prompt('请输入标签名');
-            if (!name) {
-                window.alert('标签名不能为空');
-            } else {
-                this.$store.dispatch('addwithSaveTag',name)
-            }
-        }
     }
 </script>
 

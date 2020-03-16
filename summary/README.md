@@ -382,23 +382,7 @@ export default class B extends Vue {
 
 #### window 封装了所有的 model
 
-#### computed 里的值和引用
-```
-computed: {
-    count() {
-        return store.count
-    }
-}
 
-store = store
-
-mounted() {
-    setTimeout(() => {
-        store.addCount()
-        console.log(store.count);
-    }, 3000)
-}
-```
 
 #### 引用传递可以写成 computed 形式
 ```
@@ -410,6 +394,14 @@ computed: {
     tags() {
         return store.tagList
     }
+}
+```
+
+#### vue2 不支持在 ts 里直接用 computed
+> 用 get,等效于 computed
+```
+get tags() {
+    return this.$store.state.tagList
 }
 ```
 
