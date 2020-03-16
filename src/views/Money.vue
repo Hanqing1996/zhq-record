@@ -13,24 +13,15 @@
     import Types from '@/components/money/Types.vue'
     import NumberPad from '@/components/money/NumberPad.vue'
 
-    // import store from "@/store/index2";
-
     import Vue from 'vue';
-    import {Component, Watch} from 'vue-property-decorator';
+    import {Component} from 'vue-property-decorator';
     import store from '@/store';
-    import store2 from "@/store/index2";
 
     @Component({
         components: {Tags, FormItem, Types, NumberPad},
-        computed: {
-            recordList(){
-                return store.state.recordList
-            }
-        }
     })
     export default class Money extends Vue {
         value = ""
-        tags = store2.tagList
         record: RecordItem = {
             tags: [],
             type: '+',
@@ -38,10 +29,19 @@
             amount: 0
         }
 
-        created(){
-            store.dispatch('initializeRecordList')
+        get recordList(){
+            return store.state.recordList
         }
 
+        get tags(){
+
+            return store.state.tagList
+        }
+
+        created(){
+            store.dispatch('initializeRecordList')
+            store.dispatch('initializeTagList')
+        }
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
@@ -62,13 +62,6 @@
                 notes: '',
                 amount: 0
             }
-        }
-
-
-        @Watch('tags')
-        onTagListChange() {
-            const length = this.tags.length
-            store2.addTag(this.tags[length - 1].name)
         }
     }
 </script>

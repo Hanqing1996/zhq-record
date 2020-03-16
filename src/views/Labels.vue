@@ -16,29 +16,26 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    // import tagListModel from '@/models/tagListModel'
     import {Component, Watch} from 'vue-property-decorator';
-    import store from "@/store/index2";
-
+    import store from "@/store/";
 
     @Component
     export default class Labels extends Vue {
-        tags = store.tagList
+        get tags() {
+            return store.state.tagList
+        }
 
         createTag() {
             const name = window.prompt('请输入标签名');
             if (!name) {
                 window.alert('标签名不能为空');
             } else {
-                const message = store.addTag(name)
-                if(message === 'duplicated') {
+                store.dispatch('addwithSaveTag', name)
+                if (store.state.tagStatusMessage === 'duplicated') {
                     window.alert('标签名重复');
-                } else{
+                } else {
                     // 添加成功
 
-                    /**
-                     * this.tags 会自动更新，因为它与 tagListModel.data 指向同一个地址
-                     */
                 }
             }
         }

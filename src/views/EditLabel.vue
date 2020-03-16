@@ -19,7 +19,7 @@
     import Vue from 'vue'
     import {Component} from "vue-property-decorator";
 
-    import store2 from "@/store/index2";
+    import store from "@/store/";
 
     import FormItem from '@/components/money/FormItem .vue'
 
@@ -29,19 +29,24 @@
 
         created() {
             const targetId = Number(this.$route.params.id) // 路由操作
-            const tag = store2.findTag(targetId)
-            tag?this.tag = tag:this.$router.replace('/404')
+            store.commit('findTag', targetId)
+
+            if (store.state.findedTag.id) {
+                this.tag = store.state.findedTag
+            } else {
+                this.$router.replace('/404')
+            }
             // 这里 push 和 replace 是有区别的，涉及到 hash模式等前端路由知识。用 replace 的话用户可以通过浏览器的后退键回到刚才页面，所以更好
             // 路由器操作，'/labels/edit/3000'将跳转到'/404',即 404页面
         }
 
         updateTagName(newName: string) {
-            this.tag&&store2.updateTag(this.tag.id, newName)
+            this.tag && store.dispatch('updatewithSaveTag', {id: this.tag.id, name: newName})
         }
 
         removeTag() {
-            const message=this.tag&&store2.removeTag(this.tag.id)
-            if(message==='success'){
+            this.tag&&store.dispatch('removewithSaveTag', this.tag.id)
+            if (store.state.tagStatusMessage=== 'success') {
                 this.$router.replace('/labels')
             }
         }
