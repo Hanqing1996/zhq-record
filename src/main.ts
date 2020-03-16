@@ -23,6 +23,12 @@ window.tagList=tagListModel.fetch()
 window.addTag=(name)=>{
   return tagListModel.add(name)
 }
+window.removeTag=(id)=>{
+  return tagListModel.remove(id)
+}
+window.updateTag= (id, name)=>{
+  return tagListModel.update(id,name)
+}
 
 window.recordList=recordModel.fetch()
 

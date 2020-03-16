@@ -28,7 +28,7 @@
 
         created() {
             const targetId = Number(this.$route.params.id) // 路由操作
-            const tags = tagListModel.data
+            const tags = window.tagList
             const tag = tags.filter(tag => tag.id === targetId)[0]
             if (tag) {
                 this.tag = tag
@@ -39,11 +39,11 @@
         }
 
         updateTagName(newName: string) {
-            this.tag&&tagListModel.update(this.tag.id, newName)
+            this.tag&&window.updateTag(this.tag.id, newName)
         }
 
         removeTag() {
-            const message=this.tag&&tagListModel.remove(this.tag.id)
+            const message=this.tag&&window.removeTag(this.tag.id)
             if(message==='success'){
                 this.$router.replace('/labels')
             }

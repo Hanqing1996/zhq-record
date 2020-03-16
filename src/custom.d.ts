@@ -24,8 +24,10 @@ interface TagListModelInterface {
 }
 
 interface Window {
-    tagList:TagList
-    recordList:RecordList
-    addTag:(name: string) => 'duplicated' | 'success'
-
+    tagList:TagList,
+    recordList:RecordList,
+    addTag:TagListModelInterface['add'],
+    updateTag:TagListModelInterface['update'],
+    saveTag:TagListModelInterface['save'],
+    removeTag:TagListModelInterface['remove']
 }
