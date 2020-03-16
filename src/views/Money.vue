@@ -34,13 +34,6 @@
         recordList: RecordItem [] = store.recordList
 
 
-        mounted() {
-            setTimeout(() => {
-                store.addCount()
-                console.log(store.count);
-            }, 3000)
-        }
-
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
         }
