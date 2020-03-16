@@ -28,14 +28,12 @@ export default new Vuex.Store({
 
         // tag
         fetchTag(state) {
-            console.log(window.localStorage.getItem('tagList'));
-            state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
         },
         saveTag(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList))
         },
         addTag(state, name) {
-            console.log('add?');
             const names = state.tagList.map(tag => tag.name)
             if (names.indexOf(name) >= 0) {
                 state.tagStatusMessage = 'duplicated'

@@ -19,7 +19,6 @@
     import Vue from 'vue'
     import {Component} from "vue-property-decorator";
 
-    import store from "@/store/";
 
     import FormItem from '@/components/money/FormItem .vue'
 
@@ -29,10 +28,10 @@
 
         created() {
             const targetId = Number(this.$route.params.id) // 路由操作
-            store.commit('findTag', targetId)
+            this.$store.commit('findTag', targetId)
 
-            if (store.state.findedTag.id) {
-                this.tag = store.state.findedTag
+            if (this.$store.state.findedTag.id) {
+                this.tag = this.$store.state.findedTag
             } else {
                 this.$router.replace('/404')
             }
@@ -41,12 +40,12 @@
         }
 
         updateTagName(newName: string) {
-            this.tag && store.dispatch('updatewithSaveTag', {id: this.tag.id, name: newName})
+            this.tag && this.$store.dispatch('updatewithSaveTag', {id: this.tag.id, name: newName})
         }
 
         removeTag() {
-            this.tag&&store.dispatch('removewithSaveTag', this.tag.id)
-            if (store.state.tagStatusMessage=== 'success') {
+            this.tag&&this.$store.dispatch('removewithSaveTag', this.tag.id)
+            if (this.$store.state.tagStatusMessage=== 'success') {
                 this.$router.replace('/labels')
             }
         }

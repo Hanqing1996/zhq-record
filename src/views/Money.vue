@@ -15,7 +15,6 @@
 
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
-    import store from '@/store';
 
     @Component({
         components: {Tags, FormItem, Types, NumberPad},
@@ -30,17 +29,17 @@
         }
 
         get recordList(){
-            return store.state.recordList
+            return this.$store.state.recordList
         }
 
         get tags(){
 
-            return store.state.tagList
+            return this.$store.state.tagList
         }
 
         created(){
-            store.dispatch('initializeRecordList')
-            store.dispatch('initializeTagList')
+            this.$store.dispatch('initializeRecordList')
+            this.$store.dispatch('initializeTagList')
         }
 
         onUpdateTags(selectedTags: string[]) {
@@ -53,7 +52,7 @@
 
         setNewRecord() {
             this.record.createdAt = new Date();
-            store.dispatch('addwithSaveRecord',this.record)
+            this.$store.dispatch('addwithSaveRecord',this.record)
 
             // 重置
             this.record = {

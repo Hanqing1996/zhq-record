@@ -16,13 +16,12 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Watch} from 'vue-property-decorator';
-    import store from "@/store/";
+    import {Component} from 'vue-property-decorator';
 
     @Component
     export default class Labels extends Vue {
         get tags() {
-            return store.state.tagList
+            return this.$store.state.tagList
         }
 
         createTag() {
@@ -30,8 +29,8 @@
             if (!name) {
                 window.alert('标签名不能为空');
             } else {
-                store.dispatch('addwithSaveTag', name)
-                if (store.state.tagStatusMessage === 'duplicated') {
+                this.$store.dispatch('addwithSaveTag', name)
+                if (this.$store.state.tagStatusMessage === 'duplicated') {
                     window.alert('标签名重复');
                 } else {
                     // 添加成功
