@@ -1,23 +1,23 @@
 const localStorageKeyName = 'recordList'
 
-let data:RecordList=[]
-const fetch=()=>{
-    data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
-    return data
+let _data:RecordList=[]
+const _fetch=()=>{
+    _data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
+    return _data
 }
-const cloneRecord=(data:RecordList|RecordItem)=>{
-    return JSON.parse(JSON.stringify(data))
+const _cloneRecord=(_data:RecordList|RecordItem)=>{
+    return JSON.parse(JSON.stringify(_data))
 }
-const save=()=>{
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(data))
+const _save=()=>{
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(_data))
 }
 
 const recordStore:RecordStore = {
-    recordList:fetch(),
+    recordList:_fetch(),
     addRecord: (record) => {
-        const newRecord = cloneRecord(record)
-        data.push(newRecord)
-        save()
+        const newRecord = _cloneRecord(record)
+        _data.push(newRecord)
+        _save()
     }
 }
 

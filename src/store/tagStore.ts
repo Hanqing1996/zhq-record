@@ -2,45 +2,45 @@ import createId from '@/lib/idCreator.ts'
 const localStorageKeyName = 'tagList'
 
 // 以下方法及字段不暴露给外界
-let data: TagList = []
-const fetch = () => {
-    data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
-    return data
+let _data: TagList = []
+const _fetch = () => {
+    _data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
+    return _data
 }
-const save = () => {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(data))
+const _save = () => {
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(_data))
 }
 
 // 以下方法及字段暴露给外界
 const tagStore: TagStore = {
-    tagList: fetch(),
+    tagList: _fetch(),
     addTag: (name) => {
-        const names = data.map(tag => tag.name)
+        const names = _data.map(tag => tag.name)
         if (names.indexOf(name) >= 0) return 'duplicated'
-        data.push({id: createId(), name})
-        save()
+        _data.push({id: createId(), name})
+        _save()
         return 'success';
     },
     removeTag: (id) => {
-        const idList = data.map(tag => tag.id)
+        const idList = _data.map(tag => tag.id)
         if (idList.indexOf(id) < 0) return 'not found'
         const targetIndex = idList.indexOf(id)
-        data.splice(targetIndex, 1)
-        save()
+        _data.splice(targetIndex, 1)
+        _save()
         return 'success'
     },
     updateTag: (id, name) => {
-        const idList = data.map(tag => tag.id)
+        const idList = _data.map(tag => tag.id)
         if (idList.indexOf(id) < 0) return 'not found'
-        const names = data.map(tag => tag.name)
+        const names = _data.map(tag => tag.name)
         if (names.indexOf(name) >= 0) return 'duplicated'
-        const tag = data.filter(tag => tag.id === id)[0]
+        const tag = _data.filter(tag => tag.id === id)[0]
         tag.name = name
-        save()
+        _save()
         return 'success'
     },
     findTag: (id) => {
-        return data.filter(tag => tag.id === id)[0]
+        return _data.filter(tag => tag.id === id)[0]
     }
 }
 
