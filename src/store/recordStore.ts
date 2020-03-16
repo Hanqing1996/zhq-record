@@ -2,6 +2,7 @@ const localStorageKeyName = 'recordList'
 
 let _data:RecordList=[]
 const _fetch=()=>{
+    console.log('tag 的 fetch');
     _data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
     return _data
 }

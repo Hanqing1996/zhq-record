@@ -1,6 +1,6 @@
 <template>
     <Layout prefix="money">
-        <Tags :tags.sync="tags" @update:value="onUpdateTags($event)"/>
+        <Tags :tags="tags" @update:value="onUpdateTags($event)" />
         <FormItem field-name="备注" placeholder="请在这里输入备注" :value.sync="value" @update:value="onUpdateNotes($event)"/>
         <Types :type.sync="record.type"/>
         <NumberPad :value.sync="record.amount" @submit="setNewRecord"/>

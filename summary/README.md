@@ -341,7 +341,8 @@ const recordModel=require('./recordModel.js').recordModel
 
 #### 开发规范
 * 对于 type,应该一律写到 custom.d.ts 里，以便所有文件引用 
-
+* 小心可能引起重定向的操作（JSON.parse...）
+* 注意箭头函数内不要出现 this
 
 #### vue-router
 * 回退到刚才的页面
@@ -398,4 +399,37 @@ export default class B extends Vue {
         add(){
             person.count+=1
         }
+```
+
+#### 在去除 $emit 的情况下依旧保持单向数据流
+> 儿子让爸爸去提醒 store 修改数据,然后爸爸把修改后的数据传给儿子=>儿子自己去提醒 store 修改数据,然后爸爸把修改后的数据传给儿子
+
+> 注意儿子并没有直接修改数据!儿子和父亲都没有修改数据，是第三方的 store 修改了数据
+
+> 由于修改后的数据一定是以 props 形式由父亲传向儿子，所以单向数据流没有改变。
+* 原先
+```
+// 子组件
+this.$emit('add:tag',name)
+```
+```
+// 父组件
+ <Tags :tags="tags"  @add:tag="addTag($event)" />
+     
+tags =store.tagList
+addTag(tagName: string){
+    store.addTag(tagName)
+}
+```
+* 去除 $emit 
+```
+// 子组件
+
+
+```
+```
+// 父组件
+ <Tags :tags="tags"  @add:tag="addTag($event)" />
+     
+tags =store.tagList
 ```

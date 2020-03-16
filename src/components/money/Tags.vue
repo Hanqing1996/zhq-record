@@ -14,6 +14,7 @@
 <script lang="ts">
     import Vue from 'vue';
     import {Component, Prop} from 'vue-property-decorator';
+    import store from "@/store/index2";
 
     @Component
     export default class Tags extends Vue {
@@ -33,7 +34,7 @@
             if (!name) {
                 window.alert('标签名不能为空');
             } else {
-                this.$emit('update:tags', [...(this.tags as TagList), {id:name,name}])
+                store.addTag(name)
             }
         }
     }
