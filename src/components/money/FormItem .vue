@@ -16,8 +16,8 @@ export default class FormItem extends Vue {
     @Prop({required:true}) readonly fieldName!: string
     @Prop(String) readonly placeholder!: string|undefined
 
-    updateValue(event){
-        this.$emit('update:value',event.target.value)
+    updateValue(event: InputEvent){
+        this.$emit('update:value',(event.target as HTMLInputElement).value)
     }
 }
 </script>
