@@ -21,6 +21,7 @@ interface TagListModelInterface {
     update: (id: number, name: string) => 'not found' | 'duplicated' | 'success',
     save: () => void
     remove: (id: number) => 'not found' | 'success',
+    find:(id:number)=>Tag
 }
 
 interface Window {
@@ -30,4 +31,5 @@ interface Window {
     updateTag:TagListModelInterface['update'],
     saveTag:TagListModelInterface['save'],
     removeTag:TagListModelInterface['remove']
+    findTag:TagListModelInterface['find']
 }

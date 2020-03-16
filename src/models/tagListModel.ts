@@ -35,6 +35,9 @@ const tagListModel: TagListModelInterface = {
     },
     save() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))
+    },
+    find(id){
+        return this.data.filter(tag=>tag.id===id)[0]
     }
 }
 

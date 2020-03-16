@@ -17,7 +17,7 @@
 
 <script lang="ts">
     import Vue from 'vue'
-    import {Component, Prop} from "vue-property-decorator";
+    import {Component} from "vue-property-decorator";
 
     import tagListModel from '@/models/tagListModel'
     import FormItem from '@/components/money/FormItem .vue'
@@ -28,8 +28,7 @@
 
         created() {
             const targetId = Number(this.$route.params.id) // 路由操作
-            const tags = window.tagList
-            const tag = tags.filter(tag => tag.id === targetId)[0]
+            const tag = window.findTag(targetId)
             if (tag) {
                 this.tag = tag
             } else {

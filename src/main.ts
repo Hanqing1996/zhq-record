@@ -29,6 +29,9 @@ window.removeTag=(id)=>{
 window.updateTag= (id, name)=>{
   return tagListModel.update(id,name)
 }
+window.findTag=(id)=>{
+  return tagListModel.find(id)
+}
 
 window.recordList=recordModel.fetch()
 

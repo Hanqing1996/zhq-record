@@ -17,9 +17,6 @@
     import {Component, Watch} from 'vue-property-decorator';
 
     import recordModel from '@/models/recordModel'
-    import tagListModel from "@/models/tagListModel";
-
-    window.tagList
 
     @Component({
         components: {Tags, FormItem, Types, NumberPad}
@@ -34,12 +31,6 @@
             amount: 0
         }
         recordList: RecordItem [] = window.recordList
-
-
-        created(){
-            // console.log(tagListModel.data);
-            // console.log(window.tagList);
-        }
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
