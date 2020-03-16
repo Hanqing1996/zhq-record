@@ -21,7 +21,6 @@ const tagListModel: TagListModelInterface = {
         const names = this.data.map(tag => tag.name)
         if (names.indexOf(name) >= 0) return 'duplicated'
         const tag = this.data.filter(tag => tag.id === id)[0]
-        tag.id = createId()
         tag.name = name
         this.save()
         return 'success'
