@@ -2,14 +2,6 @@ import createId from "@/lib/idCreator";
 
 const localStorageKeyName = 'recordList'
 
-interface RecordModelInterface {
-    data: RecordList,
-    cloneRecord: <T>(data: T) => T,
-    add:(record:RecordItem)=>void
-    fetch: () => RecordList,
-    save: () => void
-}
-
 const recordModel: RecordModelInterface = {
     data: [],
     cloneRecord(data){

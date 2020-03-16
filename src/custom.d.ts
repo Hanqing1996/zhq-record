@@ -24,12 +24,22 @@ interface TagListModelInterface {
     find:(id:number)=>Tag
 }
 
+interface RecordModelInterface {
+    data: RecordList,
+    cloneRecord: <T>(data: T) => T,
+    add:(record:RecordItem)=>void
+    fetch: () => RecordList,
+    save: () => void
+}
+
 interface Window {
     tagList:TagList,
-    recordList:RecordList,
     addTag:TagListModelInterface['add'],
     updateTag:TagListModelInterface['update'],
     saveTag:TagListModelInterface['save'],
     removeTag:TagListModelInterface['remove']
     findTag:TagListModelInterface['find']
+
+    recordList:RecordList,
+    addRecord:RecordModelInterface['add']
 }

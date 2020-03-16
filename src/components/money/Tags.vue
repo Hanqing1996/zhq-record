@@ -1,7 +1,7 @@
 <template>
     <div class="tags">
         <ul class="current">
-            <li v-for="item in tags" :key=item.id @click="toggle(item.name)" :class="{selected:selectedTags.map(tag=>tag.name).indexOf(item.name)>=0}">
+            <li v-for="item in tags" :key=item.id @click="toggle(item.name)" :class="{selected:selectedTags.indexOf(item.name)>=0}">
                 {{item.name}}
             </li>
         </ul>

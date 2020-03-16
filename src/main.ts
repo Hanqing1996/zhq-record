@@ -32,10 +32,11 @@ window.updateTag= (id, name)=>{
 window.findTag=(id)=>{
   return tagListModel.find(id)
 }
-
+//
 window.recordList=recordModel.fetch()
-
-
+window.addRecord=(record)=>{
+  recordModel.add(record)
+}
 
 
 new Vue({

@@ -16,8 +16,6 @@
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
 
-    import recordModel from '@/models/recordModel'
-
     @Component({
         components: {Tags, FormItem, Types, NumberPad}
     })
@@ -42,7 +40,7 @@
 
         setNewRecord() {
             this.record.createdAt = new Date();
-            recordModel.add(this.record)
+            window.addRecord(this.record)
 
             // 重置
             this.record = {
