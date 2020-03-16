@@ -438,6 +438,11 @@ store.addTag(name)
 tags =store.tagList
 ```
 
+#### vuex 的 store 有两种调用方式
+1. main.ts 全局注册
+2. 各个组件引用 @/store
+
+
 #### vuex
 * state
 > data
@@ -445,3 +450,6 @@ tags =store.tagList
 > method
 * action
 > 异步操作
+
+#### mixin
+> 主要思想就是选项混合，在mixin中声明方法 createTag 后可以直接在接受 mixin 的组件中调用 createTag

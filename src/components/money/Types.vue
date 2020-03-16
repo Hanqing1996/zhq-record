@@ -1,7 +1,7 @@
 <template>
     <ul class="types">
-        <li :class="type==='+'&&'selected'" @click="selectType('+')">收入</li>
-        <li :class="type==='-'&&'selected'" @click="selectType('-')">支出</li>
+        <li :class="[`${classPrefix}-type-item`,type==='+'&&'selected']" @click="selectType('+')">收入</li>
+        <li :class="[`${classPrefix}-type-item`,type==='-'&&'selected']" @click="selectType('-')">支出</li>
     </ul>
 </template>
 
@@ -13,6 +13,7 @@
     export default class Types extends Vue{
 
         @Prop(String) readonly type: string | undefined;
+        @Prop(String) readonly classPrefix: string | undefined;
 
         selectType(type: '+'|'-'){
             this.$emit('update:type',type)
