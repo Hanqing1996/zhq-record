@@ -18,17 +18,19 @@
     import Vue from 'vue';
     import tagListModel from '@/models/tagListModel'
     import {Component, Watch} from 'vue-property-decorator';
+    import store from "@/store/index2";
+
 
     @Component
     export default class Labels extends Vue {
-        tags = window.tagList
+        tags = store.tagList
 
         createTag() {
             const name = window.prompt('请输入标签名');
             if (!name) {
                 window.alert('标签名不能为空');
             } else {
-                const message = window.addTag(name)
+                const message = store.addTag(name)
                 if(message === 'duplicated') {
                     window.alert('标签名重复');
                 } else{

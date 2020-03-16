@@ -19,24 +19,26 @@ Vue.component('Layout',Layout)
 Vue.component('Icon',Icon)
 Vue.component('Button',Button)
 
-window.tagList=tagListModel.fetch()
-window.addTag=(name)=>{
-  return tagListModel.add(name)
-}
-window.removeTag=(id)=>{
-  return tagListModel.remove(id)
-}
-window.updateTag= (id, name)=>{
-  return tagListModel.update(id,name)
-}
-window.findTag=(id)=>{
-  return tagListModel.find(id)
-}
+// window.store={}
 //
-window.recordList=recordModel.fetch()
-window.addRecord=(record)=>{
-  recordModel.add(record)
-}
+// window.tagList=tagListModel.fetch()
+// window.addTag=(name)=>{
+//   return tagListModel.add(name)
+// }
+// window.removeTag=(id)=>{
+//   return tagListModel.remove(id)
+// }
+// window.updateTag= (id, name)=>{
+//   return tagListModel.update(id,name)
+// }
+// window.findTag=(id)=>{
+//   return tagListModel.find(id)
+// }
+// //
+// window.recordList=recordModel.fetch()
+// window.addRecord=(record)=>{
+//   recordModel.add(record)
+// }
 
 
 new Vue({

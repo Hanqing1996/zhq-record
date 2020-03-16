@@ -13,6 +13,8 @@
     import Types from '@/components/money/Types.vue'
     import NumberPad from '@/components/money/NumberPad.vue'
 
+    import store from "@/store/index2";
+
     import Vue from 'vue';
     import {Component, Watch} from 'vue-property-decorator';
 
@@ -21,14 +23,14 @@
     })
     export default class Money extends Vue {
         value = ""
-        tags = window.tagList
+        tags =store.tagList
         record: RecordItem = {
             tags: [],
             type: '+',
             notes: '',
             amount: 0
         }
-        recordList: RecordItem [] = window.recordList
+        recordList: RecordItem [] = store.recordList
 
         onUpdateTags(selectedTags: string[]) {
             this.record.tags = selectedTags
@@ -40,7 +42,7 @@
 
         setNewRecord() {
             this.record.createdAt = new Date();
-            window.addRecord(this.record)
+            store.addRecord(this.record)
 
             // 重置
             this.record = {
@@ -55,7 +57,7 @@
         @Watch('tags')
         onTagListChange() {
             const length = this.tags.length
-            window.addTag(this.tags[length - 1].name)
+            store.addTag(this.tags[length - 1].name)
         }
     }
 </script>

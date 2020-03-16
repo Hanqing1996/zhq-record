@@ -32,11 +32,35 @@ interface RecordModelInterface {
     save: () => void
 }
 
+
+interface RecordStore{
+    recordList:RecordList,
+    addRecord:RecordModelInterface['add']
+}
+
+interface TagStore{
+    tagList:TagList,
+    addTag:TagListModelInterface['add'],
+    updateTag:TagListModelInterface['update'],
+    removeTag:TagListModelInterface['remove']
+    findTag:TagListModelInterface['find']
+}
+
+// interface Store{
+//     tagList:TagList,
+//     addTag:TagListModelInterface['add'],
+//     updateTag:TagListModelInterface['update'],
+//     removeTag:TagListModelInterface['remove']
+//     findTag:TagListModelInterface['find']
+//
+//     recordList:RecordList,
+//     addRecord:RecordModelInterface['add']
+// }
+
 interface Window {
     tagList:TagList,
     addTag:TagListModelInterface['add'],
     updateTag:TagListModelInterface['update'],
-    saveTag:TagListModelInterface['save'],
     removeTag:TagListModelInterface['remove']
     findTag:TagListModelInterface['find']
 
