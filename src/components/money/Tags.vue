@@ -17,15 +17,14 @@
 
     @Component
     export default class Tags extends Vue {
-        selectedTags: TagList = []
+        selectedTags: string[] = []
 
         // readonly 会禁止我们修改作为 prop 的 tags
         @Prop(Array) readonly tags: TagList | undefined;
 
         toggle(tagName: string) {
-            const names=this.selectedTags.map(tag=>tag.name)
-            const index = names.indexOf(tagName)
-            index >= 0 ? this.selectedTags.splice(index, 1) : this.selectedTags.push({id:tagName,name:tagName})
+            const index = this.selectedTags.indexOf(tagName)
+            index >= 0 ? this.selectedTags.splice(index, 1) : this.selectedTags.push(tagName)
             this.$emit('update:value', this.selectedTags)
         }
 
