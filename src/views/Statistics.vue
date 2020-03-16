@@ -1,9 +1,9 @@
 <template>
     <Layout>
-<!--        <Types class="x" :type.sync="type" :classPrefix="classPrefix"/>-->
+        <!--        <Types class="x" :type.sync="type" :classPrefix="classPrefix"/>-->
 
         <Tabs class="x" class-prefix="type" :data-source="typeList" :value.sync="intervalValue"/>
-        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="intervalValue"/>
+        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="typeValue"/>
     </Layout>
 </template>
 
@@ -19,26 +19,29 @@
     import typeList from "@/constants/type";
 
     @Component({
-        components: {Types,Tabs},
+        components: {Types, Tabs},
     })
 
     export default class Statistics extends Vue {
-        typeList=typeList
-        intervalList=intervalList
+        typeList = typeList
+        intervalList = intervalList
 
-        typeValue='week'
-        intervalValue='income'
+        typeValue = 'week'
+        intervalValue = 'income'
     }
 </script>
 
 <style lang="scss" scoped>
-    .x ::v-deep .type-item{
+    ::v-deep .type-item {
         background-color: white;
-        &::after{
+        &::after {
             display: none;
         }
         &.selected {
             background-color: #c4c4c4;
         }
+    }
+    ::v-deep .interval-item {
+        height: 48px;
     }
 </style>
