@@ -8,17 +8,17 @@ export default new Vuex.Store({
         recordList: [] as RecordList,
     },
     mutations: {
-        fetch(state) {
+        fetchRecord(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]');
         },
         cloneRecord(state, record: RecordList | RecordItem) {
             return JSON.parse(JSON.stringify(record))
         },
-        save(state) {
+        saveRecord(state) {
             window.localStorage.setItem('recordList', JSON.stringify(state.recordList))
         },
         addRecord(state, record) {
-            const newRecord = this.cloneRecord(record) as RecordItem
+            const newRecord = JSON.parse(JSON.stringify(record))
             state.recordList.push(newRecord)
         }
     },
@@ -27,11 +27,11 @@ export default new Vuex.Store({
     // In your case, since you wish to inflate/deflate state from local storage (which is a side effect), it makes sense to make an action.
     actions: {
         initializeRecordList({commit}) {
-            commit('fetch')
+            commit('fetchRecord')
         },
-        addwithSave({commit},record){
+        addwithSaveRecord({commit},record){
             commit('addRecord',record)
-            commit('save')
+            commit('saveRecord')
         }
     }
 })

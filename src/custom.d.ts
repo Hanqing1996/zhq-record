@@ -13,12 +13,12 @@ type Tag={id:number,name:string}
 type TagList=Tag[]
 type RecordList=RecordItem[]
 
-interface RecordStore{
-    recordList:RecordList,
-    cloneRecord:(record: RecordList | RecordItem)=>RecordList|RecordItem,
-    save:()=>void,
-    addRecord:(record:RecordItem)=>void
-}
+// interface RecordStore{
+//     recordList:RecordList,
+//     cloneRecord:(record: RecordList | RecordItem)=>RecordList|RecordItem,
+//     save:()=>void,
+//     addRecord:(record:RecordItem)=>void
+// }
 
 interface TagStore{
     tagList:TagList,
