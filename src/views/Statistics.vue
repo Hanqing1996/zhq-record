@@ -2,8 +2,8 @@
     <Layout>
 <!--        <Types class="x" :type.sync="type" :classPrefix="classPrefix"/>-->
 
-        <Tabs class="x" class-prefix="type" :data-source="dataSource2" :value.sync="value2"/>
-        <Tabs class-prefix="interval" :data-source="dataSource" :value.sync="value"/>
+        <Tabs class="x" class-prefix="type" :data-source="typeList" :value.sync="intervalValue"/>
+        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="intervalValue"/>
     </Layout>
 </template>
 
@@ -15,17 +15,19 @@
     import Vue from 'vue';
     import {Component} from 'vue-property-decorator';
     import Tabs from '@/components/Tabs.vue'
+    import intervalList from "@/constants/interval";
+    import typeList from "@/constants/type";
 
     @Component({
         components: {Types,Tabs},
     })
 
     export default class Statistics extends Vue {
-        dataSource=[{text:'日',value:'day'},{text:'周',value:'week'},{text:'月',value:'month'}]
-        value='week'
+        typeList=typeList
+        intervalList=intervalList
 
-        dataSource2=[{text:'收入',value:'income'},{text:'支出',value:'output'}]
-        value2='income'
+        typeValue='week'
+        intervalValue='income'
     }
 </script>
 
