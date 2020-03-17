@@ -1,3 +1,3 @@
-const typeList=Object.freeze([{text:'收入',value:'income'},{text:'支出',value:'output'}])
+const typeList=Object.freeze([{text:'收入',value:'+'},{text:'支出',value:'-'}])
 
 export default typeList

@@ -2,12 +2,12 @@
     <Layout>
         <!--        <Types class="x" :type.sync="type" :classPrefix="classPrefix"/>-->
 
-        <Tabs class="x" class-prefix="type" :data-source="typeList" :value.sync="intervalValue"/>
-        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="typeValue"/>
+        <Tabs class="x" class-prefix="type" :data-source="typeList" :value.sync="typeValue"/>
+        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="intervalValue"/>
         <div>
             <ol>
                 <li v-for="(group,index) in groupList" :key="index">
-                    <h3 class="title">{{beautify(group.title)}}</h3>
+                    <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
                     <ol>
                         <li v-for="(dataItem,index) in group.items" :key="index" class="record">
                             <span>{{tagString(dataItem.tags)}}</span>
@@ -32,9 +32,8 @@
     import dayjs from 'dayjs'
     import clone from "@/lib/clone";
 
-    type HashTable = {
-        [key: string]: { title: string; items: RecordList };
-    }
+    type Result = { title: string; items: RecordList; total?: number }[]
+
 
     @Component({
         components: {Tabs},
@@ -49,10 +48,6 @@
 
 
         get groupList() {
-
-            // HashTable['2020-03-17']={title:'2020-03-17',items:[{type:'+',amount:10,createdAt:2020-03-17-TZ},{type:'-',amount:9,createdAt:2020-03-17-TZ}]}
-            // HashTable['2020-03-18']={title:'2020-03-18',items:[{type:'-',amount:5,createdAt:2020-03-18-TZ}]}
-
             /*
             [
                 {title:'今天',
@@ -72,9 +67,13 @@
             const {recordList} = this
             if (recordList.length === 0) return []
 
-            const newList = clone(recordList).sort((a: RecordItem, b: RecordItem) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
+            const newList = clone(recordList)
+                .filter((item: RecordItem) => item.type === this.typeValue)
+                .sort((a: RecordItem, b: RecordItem) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
 
-            const result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+            if(newList.length===0) return []
+
+            const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
 
             for (let i = 1; i < newList.length; i++) {
                 const current = newList[i];
@@ -85,7 +84,9 @@
                     result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
                 }
             }
-            console.log(result);
+            result.forEach(records => {
+                records['total'] = records.items.reduce((result, item) => result += item.amount, 0)
+            })
 
             return result
         }
@@ -95,7 +96,8 @@
             this.$store.dispatch('initializeRecordList')
         }
 
-        tagString(tags: TagList) {
+        tagString(tags: string[]) {
+            if(tags.length===0) return '无'
             return tags.join('-')
         }
 
@@ -120,8 +122,8 @@
         typeList = typeList
         intervalList = intervalList
 
-        typeValue = 'week'
-        intervalValue = 'income'
+        typeValue = '+'
+        intervalValue = 'week'
     }
 </script>
 
