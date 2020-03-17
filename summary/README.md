@@ -453,3 +453,32 @@ tags =store.tagList
 
 #### mixin
 > 主要思想就是选项混合，在mixin中声明方法 createTag 后可以直接在接受 mixin 的组件中调用 createTag
+
+
+#### statistics 页面为什么需要在 created 时 dispatch('initializeRecordList')
+> 因为 statistics 页面需要展示 recordList 数据。dispatch('initializeRecordList') 的作用是为 store 的 recordList 赋值为 loaclstorage 的 record 字段值。用户可能在 statistics 页面进行刷新操作，刷新意味着 store 的 recordList 被重置为 []。我们需要保证用户在刷新后看到的页面上，数据不会丢失，那么就要在每次 store 的 recordList 被重置后重新对其赋值。
+
+```
+created(){
+    this.$store.dispatch('initializeRecordList')
+}
+```
+
+#### compured
+> 不止是 B 根据 A变，凡是涉及到计算的，应该都用 computed
+
+
+#### v-for 也能用于对象
+* result 是一个对象，[prop]=value
+```
+<li v-for="(value,prop) in result" :key="prop">
+    {{prop}}
+</li>
+```
+
+#### ISO8601
+* 日期转时间
+```
+this.record.createdAt = new Date().toISOString();
+```
+* 处理时间的库 day.js

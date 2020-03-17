@@ -28,17 +28,12 @@
             amount: 0
         }
 
-        get recordList(){
-            return this.$store.state.recordList
-        }
-
         get tags(){
 
             return this.$store.state.tagList
         }
 
         created(){
-            this.$store.dispatch('initializeRecordList')
             this.$store.dispatch('initializeTagList')
         }
 
@@ -51,7 +46,7 @@
         }
 
         setNewRecord() {
-            this.record.createdAt = new Date();
+            this.record.createdAt = new Date().toISOString();
             this.$store.dispatch('addwithSaveRecord',this.record)
 
             // 重置

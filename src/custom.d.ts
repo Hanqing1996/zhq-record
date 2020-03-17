@@ -3,7 +3,7 @@ type RecordItem = {
     type: '+' | '-';
     notes: string;
     amount: number;
-    createdAt?: Date;
+    createdAt?: string;
 }
 
 type Version=string
@@ -12,3 +12,6 @@ type Tag={id:number,name:string}
 
 type TagList=Tag[]
 type RecordList=RecordItem[]
+
+
+
