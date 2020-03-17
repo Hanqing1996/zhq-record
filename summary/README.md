@@ -477,8 +477,33 @@ created(){
 ```
 
 #### ISO8601
-* 日期转时间
+* 日期转字符串
 ```
-this.record.createdAt = new Date().toISOString();
+dateStr = new Date().toISOString(); // "2020-03-17T03:33:07.635Z"
+```
+* 字符串转日期
+```
+title="2020-03-17T03:33:07.635Z"
+new Date(Date.parse(title))// Tue Mar 17 2020 11:33:07 GMT+0800 (中国标准时间)
+```
+* 数字转日期
+```
+num=Date.now() // 1584416280585
+date=new Date(num) // Tue Mar 17 2020 11:31:25 GMT+0800 (中国标准时间) {}
+```
+* 获取当前时刻的前24小时时刻
+> 86400=3600*24,而 1584415885280 的单位是毫秒
+```
+num=Date.now() // 1584416280585
+date=new Date(num-86400*1000) // Mon Mar 16 2020 11:31:25 GMT+0800 (中国标准时间)
 ```
 * 处理时间的库 day.js
+> 判断 date 的日期对应的是不是前天
+```
+const date = dayjs('2020-03-17');
+date.isSame(now.subtract(2, 'day'), 'day')
+```
+> 格式化
+```
+day.format('YYYY年M月D日');
+```
