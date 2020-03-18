@@ -17,11 +17,6 @@
 ```
 * 404 页面
 
-#### 公共组件
-* Nav
-* Layout
-> 常用页面布局
-
 #### svg-sprite-loader
 1. 让 ts 识别 svg 文件
 > 创建 shims-svg.d.ts
@@ -376,12 +371,6 @@ export default class B extends Vue {
         }
 }
 ```
-
-
-#### tagListViewModel 负责整个项目中 tags 的数据管理与同步
-
-#### window 封装了所有的 model
-
 
 
 #### 引用传递可以写成 computed 形式
