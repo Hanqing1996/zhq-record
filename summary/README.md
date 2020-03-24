@@ -496,3 +496,8 @@ date.isSame(now.subtract(2, 'day'), 'day')
 ```
 day.format('YYYY年M月D日');
 ```
+
+#### 部署至 github
+* [教程](https://cli.vuejs.org/zh/guide/deployment.html#github-pages)
+* 注意在 repo 的 setting 选择 master:gh-pages 分支
+* 不必设置 homePage
